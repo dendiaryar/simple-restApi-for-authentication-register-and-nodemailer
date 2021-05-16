@@ -7,8 +7,8 @@ import RegisterRouter from './register';
 
 const ApiRouter = Router();
 
-ApiRouter.use('/verify',AuthRouter);
-ApiRouter.use('/register',RegisterRouter);
+ApiRouter.use('/auth',AuthRouter);
+ApiRouter.use('/user',RegisterRouter);
 //router.use('/mailing');
 //
 

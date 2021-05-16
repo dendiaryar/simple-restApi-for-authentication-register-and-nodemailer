@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import {RegisterController} from '../../controllers/_register';
+import {UserController} from '../../controllers/_user';
 
 
-const RegisterRouter = Router();
+const UserRouter = Router();
 
-RegisterRouter.post('/',RegisterController);
+UserRouter.post('/register',UserController.createUser);
 
-export default RegisterRouter;
+export default UserRouter;

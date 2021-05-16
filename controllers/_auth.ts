@@ -1,7 +1,37 @@
 import {Request,Response} from 'express';
-import {UserModel} from '../model/_user';
+import {user, UserModel} from '../model/_user';
+import { BaseController } from './basecontroller';
+import {response_success,response_bad_request,response_unauthorized} from '../utils/_responseutils';
 
 
-export const AuthController = async (req:Request,res:Response)=>{
- 
+export class AuthController extends BaseController {
+    static async login(req:Request,res:Response):Promise<Response> {
+        
+        const {email,password} = req.body;
+        const user:user|undefined = await super.findByEmail(email);
+
+        if(!user){
+            return response_bad_request(res,"Login Failed");
+        }
+        const isMatch = await super.compare(password,user.password);
+        
+        if(isMatch){
+            req.session.isAuth = true
+            req.session.user = user.username
+            return response_success(res,{success:true},"Found user on database");
+        }else{
+            return response_bad_request(res,"Wrong Password");
+        }
+    }
+
+    static isAuth(req:Request,res:Response){
+        if(req.session.isAuth){
+            return true
+            // return response_success(res,"Authorized Request");
+        }else{
+            return false
+            // return response_unauthorized(res,"Unauthorized Request");
+        }
+    }
+    
 }

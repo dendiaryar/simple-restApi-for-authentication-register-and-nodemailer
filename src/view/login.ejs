@@ -29,25 +29,10 @@
         cursor: pointer;
       }
     </style>
-
-    <script type="text/javascript">
-      var apiUrl = "http://localhost:3000/api/v1/verify";
-      fetch(apiUrl)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          
-        })
-        .catch((err) => {
-          
-        });
-    </script>
   </head>
   <body>
     <div class="login-form">
       <h3>Login Page</h3>
-      <form action="/login" method="POST">
         <div class="input-group">
           <label for="email">Email:</label>
           <input type="email" name="email" />
@@ -56,9 +41,44 @@
           <label for="password">Password:</label>
           <input type="password" name="password" />
         </div>
-        <button>Login</button>
-      </form>
+        <button id="submit">Login</button>
+      <br><br>
       <a href="/register">Register</a>
     </div>
+
+    <script type="text/javascript">
+      function ApiFetch(Email,Password){
+        var apiUrl = "http://localhost:3000/api/v1/auth/login";
+      fetch(
+        apiUrl,{
+          method:"POST",
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+              email:Email,
+              password:Password
+             })
+        }
+      )
+      .then(response=>response.json())
+      .then((response) => {
+        console.log(response)
+        console.log(response.content.success);
+          if(response.content.success){
+            
+            window.location.replace("http://localhost:3000/dashboard");
+          }else{
+            console.log(response.message)
+          }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+      }
+      document.getElementById("submit").addEventListener("click", (e) => {
+            const email = document.getElementsByName("email")[0].value;
+            const password = document.getElementsByName("password")[0].value;
+            ApiFetch(email,password);
+        });
+    </script>
   </body>
 </html>

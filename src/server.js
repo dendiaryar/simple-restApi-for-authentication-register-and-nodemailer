@@ -3,6 +3,8 @@ import session from 'express-session';
 import config from '../config/config';
 import router from '../router/index';
 import {store} from '../model/connection';
+import cookieparser from 'cookie-parser';
+import cors from 'cors';
 
 const path = require('path');
 
@@ -13,7 +15,11 @@ app.set('views', path.join(__dirname, 'view'));
 app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
 
-app.use(json());
+app.use(
+    json(),
+    cors(),
+    cookieparser()
+    );
 app
     .use(session({
             secret:'key',

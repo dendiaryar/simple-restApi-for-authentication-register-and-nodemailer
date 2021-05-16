@@ -1,7 +1,21 @@
-import mongoose,{mongo, Schema} from 'mongoose';
+import mongoose,{mongo, Schema,Document, Model,Types} from 'mongoose';
 
 
-const userSchema = new Schema({
+export interface user{
+    username:string,
+    email:string,
+    password:string,
+    isVerified:Boolean    
+}
+
+export interface UserDocument extends user,Document{
+
+};
+
+//for model
+export interface UserModel extends Model<UserDocument>{}
+
+export const userSchema = new Schema<UserDocument,UserModel>({
     username:{
         type:String,
         required:true

@@ -1,7 +1,6 @@
 import {Router} from 'express';
-import {Request,Response} from 'express';
+import type {Request,Response} from 'express';
 import ApiRouter  from './api/index';
-import {AuthController} from '../controllers/_auth'
 
 const router = Router();
 
@@ -21,15 +20,7 @@ router.get('/register',(req:Request,res:Response)=>{
 })
 
 router.get('/dashboard',(req:Request,res:Response)=>{
-    const isAuth = AuthController.isAuth(req,res);
-    if(isAuth){
-        return res.render('dashboard');
-    }
-    else {
-        return res.end("Unauthorized")
-    }
-        
-    
+  return res.render('dashboard')
 })
 
 export default router;

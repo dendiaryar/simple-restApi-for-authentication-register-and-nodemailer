@@ -9,8 +9,7 @@ const ApiRouter = Router();
 
 ApiRouter.use('/auth',AuthRouter);
 ApiRouter.use('/user',RegisterRouter);
-//router.use('/mailing');
-//
+
 
 //for testing purpose
 ApiRouter.get('/tes',(req:Request,res:Response)=>{

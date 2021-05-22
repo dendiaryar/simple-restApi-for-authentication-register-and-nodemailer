@@ -26,12 +26,16 @@ export class AuthController extends BaseController {
 
     static isAuth(req:Request,res:Response){
         if(req.session.isAuth){
-            return true
-            // return response_success(res,"Authorized Request");
+            return response_success(res,"Authorized Request");
         }else{
-            return false
-            // return response_unauthorized(res,"Unauthorized Request");
+            return response_unauthorized(res,"Unauthorized Request");
         }
     }
+    static logout_post(req:Request, res:Response){
+        req.session.destroy((err) => {
+          if (err) throw err;
+          res.redirect("/login");
+        });
+      };
     
 }

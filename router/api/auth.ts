@@ -5,6 +5,7 @@ import {AuthController} from '../../controllers/_auth';
 const AuthRouter = Router();
 
 AuthRouter.post('/login',AuthController.login);
-AuthRouter.get('/verify',AuthController.isAuth);
+AuthRouter.post('/verify',AuthController.isAuth);
+AuthRouter.post('/logout',AuthController.logout_post);
 
 export default AuthRouter;
